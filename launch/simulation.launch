@@ -1,7 +1,7 @@
 <launch>
 
   # 옵션
-  <arg name="map" default="L81_gazebo"/>
+  <arg name="map" default="L8_first_floor"/>
 
   # 환경
   <include file="$(find shared_control)/launch/navigation.launch">

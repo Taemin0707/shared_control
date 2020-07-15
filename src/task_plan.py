@@ -27,6 +27,7 @@ class TaskPlan:
         self.ang_vel_intersection = rospy.get_param('~ang_vel_intersection', 1.82)
         self.dist_alarm_1 = rospy.get_param('~dist_alarm_1', 5.0)
         self.dist_alarm_2 = rospy.get_param('~dist_alarm_2', 3.0)
+        self.pause_time = rospy.get_param('~pause_time', 3.0)
         self.spin_cycle = rospy.Duration(rospy.get_param('~spin_cycle', 0.3))
         self.plan_cycle = rospy.Duration(rospy.get_param('~plan_cycle', 1.0))
         
@@ -73,6 +74,8 @@ class TaskPlan:
         rospy.Timer(self.plan_cycle, self.explosion)
         print(C_GREEN + '\rTask planner, 초기화 완료\n' + C_END)
 
+        self.last_goal = MoveBaseGoal()
+
     def mount_gvg(self):
         nearest = -1
         while nearest == -1:
@@ -110,6 +113,16 @@ class TaskPlan:
             self.move_result.status = 3
             self.publisher_robot_motion.publish(header=self.get_header(), motion=M_STOP)
             self.robot_state = S_SLEEP
+
+            print('\r%6.1f[s]: Task planner, 일시 정지'%(rospy.Time.now() - self.time_start).to_sec())
+            rospy.sleep(self.pause_time)
+            print('\r%6.1f[s]: Task planner, 다음 노드로 계속 이동'%(rospy.Time.now() - self.time_start).to_sec())
+
+            self.client.send_goal(self.last_goal)
+            self.publisher_robot_motion.publish(header=self.get_header(), motion=M_MOVE)
+            self.robot_state = S_INDIRECT_WAIT
+            self.move_result.status = 0
+
         elif data.num == 2:
             print('\r%6.1f[s]: Task planner, 명령('%(rospy.Time.now() - self.time_start).to_sec() + C_YELLO + '2' + C_END + ') 획득')
             self.percussion_time = rospy.get_time()
@@ -253,6 +266,8 @@ class TaskPlan:
             self.client.wait_for_server()
         self.client.send_goal(goal)
 
+        self.save_last_goal(goal)
+
     def check_intersection(self):
         des_node_neighbors = list(self.get_neighbors(self.destination_node).ids)
         choice = copy.copy(des_node_neighbors)
@@ -304,6 +319,8 @@ class TaskPlan:
         header.stamp = rospy.Time.now()
         return header
         
+    def save_last_goal(self, goal):
+        self.last_goal = goal
 
 if __name__ == '__main__':
     rospy.init_node('task_planner')

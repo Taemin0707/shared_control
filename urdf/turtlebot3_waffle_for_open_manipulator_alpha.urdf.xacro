@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="turtlebot3_waffle" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="turtlebot3_waffle_for_open_manipulator" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find turtlebot3_description)/urdf/common_properties.xacro"/>
   <xacro:include filename="$(find shared_control)/urdf/turtlebot3_waffle_gazebo.xacro"/>
 
@@ -19,7 +19,7 @@
   <link name="base_link">
     <visual>
       <!-- <origin xyz="-0.064 0 0.0" rpy="0 0 0"/> -->
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.094 0 0.0" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://turtlebot3_description/meshes/bases/waffle_base.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -28,7 +28,7 @@
 
     <collision>
       <!-- <origin xyz="-0.064 0 0.047" rpy="0 0 0"/> -->
-      <origin xyz="0 0 0.047" rpy="0 0 0"/>
+      <origin xyz="-0.094 0 0.047" rpy="0 0 0"/>
       <geometry>
         <box size="0.266 0.266 0.094"/>
       </geometry>
@@ -36,11 +36,10 @@
 
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <!-- <mass value="1.3729096e+00"/> -->
-      <mass value="0.1"/>
-      <inertia ixx="8.7002718e-03" ixy="-4.7576583e-05" ixz="1.1160499e-04"
-               iyy="8.6195418e-03" iyz="-3.5422299e-06"
-               izz="1.4612727e-02" />
+      <mass value="1.6329594e+00"/>
+      <inertia ixx="1.0418769e+05" ixy="1.7327248e+00" ixz="-8.1943898e-01"
+               iyy="1.6997442e+05" iyz="3.9896822e+00"
+               izz="2.2187284e+05" />
     </inertial>
   </link>
 
@@ -70,7 +69,7 @@
     <inertial>
       <origin xyz="0 0 0" />
       <!-- <mass value="2.8498940e-02" /> -->
-      <mass value="0.1"/>
+      <mass value="2.8498940e-02" />
       <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09"
                iyy="1.1192413e-05" iyz="-1.4400107e-11"
                izz="2.0712558e-05" />
@@ -102,8 +101,7 @@
 
     <inertial>
       <origin xyz="0 0 0" />
-      <!-- <mass value="2.8498940e-02" /> -->
-      <mass value="0.1"/>
+      <mass value="2.8498940e-02" />
       <inertia ixx="1.1175580e-05" ixy="-4.2369783e-11" ixz="-5.9381719e-09"
                iyy="1.1192413e-05" iyz="-1.4400107e-11"
                izz="2.0712558e-05" />
@@ -114,7 +112,7 @@
     <parent link="base_link"/>
     <child link="caster_back_right_link"/>
     <!-- <origin xyz="-0.177 -0.064 -0.004" rpy="-1.57 0 0"/> -->
-    <origin xyz="-0.113 -0.016 -0.004" rpy="-1.57 0 0"/>
+    <origin xyz="-0.215 -0.064 -0.004" rpy="-1.57 0 0"/>
   </joint>
 
   <link name="caster_back_right_link">
@@ -138,7 +136,7 @@
     <parent link="base_link"/>
     <child link="caster_back_left_link"/>
     <!-- <origin xyz="-0.177 0.064 -0.004" rpy="-1.57 0 0"/> -->
-    <origin xyz="-0.113 0.016 -0.004" rpy="-1.57 0 0"/>
+    <origin xyz="-0.215 0.064 -0.004" rpy="-1.57 0 0"/>
   </joint>
 
   <link name="caster_back_left_link">
@@ -162,7 +160,7 @@
     <parent link="base_link"/>
     <child link="imu_link"/>
     <!-- <origin xyz="0.0 0 0.068" rpy="0 0 0"/> -->
-    <origin xyz="0.028 -0.0215 0.017" rpy="0 0 0"/>
+    <origin xyz="-0.019 0 0.098" rpy="0 0 0"/>
   </joint>
 
   <link name="imu_link"/>
@@ -171,7 +169,7 @@
     <parent link="base_link"/>
     <child link="base_scan"/>
     <!-- <origin xyz="-0.064 0 0.122" rpy="0 0 0"/> -->
-    <origin xyz="0 0 0.130" rpy="0 0 1.539"/>
+    <origin xyz="-0.015 0 0.130" rpy="0 0 0"/>
   </joint>
 
   <link name="base_scan">

@@ -248,13 +248,13 @@ class Interface:
 
         self.head_to(0.5*data.axes[4], 0.1)
 
-        if data.buttons[11] == 1:
+        if data.axes[6] == 1:
             self.publisher_cmd_intuit.publish(header=self.get_header(), dir=M_LEFT)
-        if data.buttons[13] == 1:
+        if data.axes[7] == 1:
             self.publisher_cmd_intuit.publish(header=self.get_header(), dir=M_FORWARD)
-        if data.buttons[12] == 1:
+        if data.axes[6] == -1:
             self.publisher_cmd_intuit.publish(header=self.get_header(), dir=M_RIGHT)
-        if data.buttons[14] == 1:
+        if data.axes[7] == -1:
             self.publisher_cmd_intuit.publish(header=self.get_header(), dir=M_BACKWARD)
         
         if data.buttons[1] == 1:    # B

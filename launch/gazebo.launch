@@ -4,7 +4,7 @@
   <arg name="init_robot_pose_x" default="0.0"/>
   <arg name="init_robot_pose_y" default="0.0"/>
   <arg name="init_robot_pose_Y" default="0.0"/>
-  <arg name="map" default="L81_gazebo"/>
+  <arg name="map" default="L8_first_floor"/>
   <arg name="gui" default="false"/>
   <arg name="camera_hz" default="10"/>
 
@@ -17,7 +17,7 @@
   <arg name="debug" default="false"/>
   <arg name="physics" default="ode"/>
   <arg name="verbose" default="false"/>
-  <arg name="world_name" default="$(find shared_control)/gazebo/$(arg map).sdf"/>
+  <arg name="world_name" default="$(find shared_control)/worlds/$(arg map).world"/>
   <arg name="respawn_gazebo" default="false"/>
   <arg name="use_clock_frequency" default="false"/>
   <arg name="pub_clock_frequency" default="100"/>

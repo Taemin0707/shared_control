@@ -2,7 +2,7 @@
 
   # 옵션
   <arg name="robot" default="minibot" doc="[minibot, turtlebot]"/>
-  <arg name="map" default="L81_20190919"/>
+  <arg name="map" default="L8_fourth_floor"/>
   <arg name="gzb" default="false"/>
   <arg name="cam" default="true"/>
 
@@ -71,13 +71,14 @@
   </node>
 
   # 경로 계획
-  <node pkg="move_base" type="move_base" name="move_base">
-    <rosparam file="$(find shared_control)/$(arg robot)/costmap_common_params.yaml" command="load" ns="global_costmap"/>
-    <rosparam file="$(find shared_control)/$(arg robot)/costmap_common_params.yaml" command="load" ns="local_costmap"/>
-    <rosparam file="$(find shared_control)/$(arg robot)/local_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find shared_control)/$(arg robot)/global_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find shared_control)/$(arg robot)/base_local_planner_params.yaml" command="load"/>
-    <rosparam file="$(find shared_control)/$(arg robot)/costmap_converter_params.yaml" command="load"/>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find shared_control)/params/$(arg robot)/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find shared_control)/params/$(arg robot)/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find shared_control)/params/$(arg robot)/local_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find shared_control)/params/$(arg robot)/global_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find shared_control)/params/$(arg robot)/base_local_planner_params.yaml" command="load"/>
+    <rosparam file="$(find shared_control)/params/$(arg robot)/costmap_converter_params.yaml" command="load"/>
+    
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
     <param name="controller_frequency" value="10.0"/>
   </node>
